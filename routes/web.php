@@ -91,4 +91,5 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     Route::put('/settings', [AdminSetting::class, 'update'])->name('settings.update');
     Route::get('/settings/templates', [AdminSetting::class, 'templates'])->name('settings.templates');
     Route::post('/settings/templates', [AdminSetting::class, 'updateTemplate'])->name('settings.template.update');
+    Route::post('/settings/hero', [AdminSetting::class, 'updateHero'])->name('settings.hero.update');
 });

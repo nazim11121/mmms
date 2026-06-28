@@ -757,8 +757,104 @@
         </div>
         <div style="font-size:.8rem;color:var(--text3);line-height:1.55;">
             <strong style="color:var(--text2);">How themes work:</strong>
-            Each theme overrides the public site's color palette, typography (heading font), and visual rhythm — border radii, shadows, spacing. The admin panel always keeps its own fixed design. Changes apply instantly — no rebuild, no cache flush needed. Fonts load from Google Fonts CDN.
+            Each theme overrides the public site's color palette, typography (heading font), and visual rhythm — border radii, shadows, spacing. Themes also select their default hero layout automatically. The admin panel always keeps its own fixed design. Changes apply instantly — no rebuild, no cache flush needed.
         </div>
     </div>
 </div>
+
+{{-- ═══════════════════ HERO LAYOUT PICKER ═══════════════════ --}}
+<div class="page-hd" style="margin-top:48px;">
+    <div>
+        <h2>Hero Banner Layout</h2>
+        <p>Choose a hero design style. Leave on "Auto" to let the active theme pick automatically.</p>
+    </div>
+</div>
+
+@php
+$heroLayouts = [
+    ['slug' => '',                'name' => 'Auto (Theme Default)',  'desc' => 'Each theme picks its own best-match hero layout automatically.', 'preview_bg' => 'linear-gradient(135deg,#E8E0D0,#D4C8B8)', 'preview_inner' => '#9A8878', 'icon' => 'fas fa-magic'],
+    ['slug' => 'dark-immersive',  'name' => 'Dark Immersive',        'desc' => 'Full-screen brand gradient with decorative rings and left-aligned content.', 'preview_bg' => 'linear-gradient(140deg,var(--brand,#B5341A),rgba(0,0,0,.9))', 'preview_inner' => '#fff', 'icon' => 'fas fa-moon'],
+    ['slug' => 'split-light',     'name' => 'Split Light',           'desc' => 'CSS Grid two-column: light text panel left, brand gradient with glass stat cards right.', 'preview_bg' => '#fff', 'preview_inner' => '#B5341A', 'icon' => 'fas fa-columns'],
+    ['slug' => 'glass-center',    'name' => 'Glass Center',          'desc' => 'Deep space background with animated color orbs behind a frosted glass centered card.', 'preview_bg' => 'linear-gradient(135deg,#0f0c29,#302b63)', 'preview_inner' => 'rgba(255,255,255,.12)', 'icon' => 'fas fa-circle'],
+    ['slug' => 'neon-cyber',      'name' => 'Neon Cyber',            'desc' => 'Dark background with CSS grid lines, neon glow accents, and a right-side stats panel.', 'preview_bg' => '#07090E', 'preview_inner' => '#00E5CC', 'icon' => 'fas fa-bolt'],
+    ['slug' => 'editorial-bold',  'name' => 'Editorial Bold',        'desc' => 'White/light bg, massive serif heading left with thick rule, colored info panel right.', 'preview_bg' => '#fff', 'preview_inner' => '#B5341A', 'icon' => 'fas fa-newspaper'],
+    ['slug' => 'soft-organic',    'name' => 'Soft Organic',          'desc' => 'Centered layout with animated blob shapes, pill CTA, and a rounded stats bar below.', 'preview_bg' => '#FBF5FF', 'preview_inner' => '#9B59B6', 'icon' => 'fas fa-leaf'],
+];
+@endphp
+
+<form method="POST" action="{{ route('admin.settings.hero.update') }}">
+@csrf
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;margin-bottom:20px;">
+@foreach($heroLayouts as $hl)
+    @php $isActive = ($activeHeroLayout === $hl['slug']); @endphp
+    <label style="cursor:pointer;">
+        <input type="radio" name="hero_layout" value="{{ $hl['slug'] }}" {{ $isActive ? 'checked' : '' }} style="position:absolute;opacity:0;width:0;height:0;">
+        <div class="tmpl-card hero-layout-card {{ $isActive ? 'active' : '' }}" style="{{ $isActive ? 'border-color:var(--brand);box-shadow:0 0 0 3px rgba(181,52,26,.12),0 4px 16px rgba(0,0,0,.1);' : '' }}">
+            @if($isActive)<div class="tmpl-active-badge"><i class="fas fa-check"></i> Active</div>@endif
+            <div class="tmpl-preview">
+                <div style="background:{{ $hl['preview_bg'] }};height:100%;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;">
+                    <i class="{{ $hl['icon'] }}" style="font-size:2.4rem;color:{{ $hl['preview_inner'] }};opacity:.7;"></i>
+                </div>
+            </div>
+            <div class="tmpl-body">
+                <div class="tmpl-name" style="font-size:.88rem;">{{ $hl['name'] }}</div>
+                <div class="tmpl-desc" style="font-size:.72rem;margin-bottom:0;">{{ $hl['desc'] }}</div>
+            </div>
+        </div>
+    </label>
+@endforeach
+</div>
+
+{{-- ═══════════════════ HERO CONTENT FIELDS ═══════════════════ --}}
+<div class="page-hd" style="margin-top:36px;">
+    <div>
+        <h2>Hero Text Content</h2>
+        <p>Edit the badge, headline, subtitle, and CTA button text shown in the hero section.</p>
+    </div>
+</div>
+<div class="panel" style="padding:24px 28px;">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+        <div class="form-group" style="grid-column:1/-1;">
+            <label class="form-label">Badge / Eyebrow Label</label>
+            <input type="text" name="hero_badge" class="form-control"
+                value="{{ old('hero_badge', $heroSettings['badge']) }}"
+                placeholder="Bangladesh's Trusted Matrimonial Platform" maxlength="120">
+            <div class="form-hint">Short trust statement shown above the heading (max 120 chars).</div>
+        </div>
+        <div class="form-group" style="grid-column:1/-1;">
+            <label class="form-label">Hero Headline <span style="color:var(--text4);font-weight:400;font-size:.8rem;">(HTML allowed: use &lt;em&gt; for italic accent, &lt;br&gt; for line break)</span></label>
+            <input type="text" name="hero_title" class="form-control"
+                value="{{ old('hero_title', $heroSettings['title']) }}"
+                placeholder="Find Your &lt;em&gt;Perfect&lt;/em&gt;&lt;br&gt;Life Partner" maxlength="300">
+        </div>
+        <div class="form-group" style="grid-column:1/-1;">
+            <label class="form-label">Hero Subtitle</label>
+            <textarea name="hero_subtitle" class="form-control" rows="2" maxlength="500"
+                placeholder="Join thousands of families...">{{ old('hero_subtitle', $heroSettings['subtitle']) }}</textarea>
+        </div>
+        <div class="form-group">
+            <label class="form-label">Primary CTA Button Text</label>
+            <input type="text" name="hero_cta" class="form-control"
+                value="{{ old('hero_cta', $heroSettings['cta']) }}"
+                placeholder="Register Free" maxlength="60">
+        </div>
+        <div style="display:flex;align-items:flex-end;padding-bottom:1px;">
+            <div class="panel" style="background:rgba(42,107,154,.06);padding:12px 14px;border-radius:var(--r-md);font-size:.77rem;color:var(--text3);line-height:1.55;flex:1;">
+                <i class="fas fa-lightbulb" style="color:var(--info);margin-right:5px;"></i>
+                Leaving a field blank keeps the built-in default. Guest visitors see Register CTA; logged-in users see Browse / Dashboard.
+            </div>
+        </div>
+    </div>
+</div>
+<div style="margin-top:16px;display:flex;gap:12px;align-items:center;">
+    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save Hero Settings</button>
+    <a href="{{ route('home') }}" target="_blank" class="btn btn-ghost btn-sm"><i class="fas fa-eye"></i> Preview</a>
+</div>
+</form>
+
+<style>
+.hero-layout-card { cursor: pointer; }
+.hero-layout-card input[type="radio"]:checked + & { border-color: var(--brand); }
+label:has(input[type="radio"]:checked) .hero-layout-card { border-color: var(--brand) !important; box-shadow: 0 0 0 3px rgba(181,52,26,.12), 0 4px 16px rgba(0,0,0,.1) !important; }
+</style>
 @endsection

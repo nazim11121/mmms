@@ -17,8 +17,15 @@ class SettingController extends Controller
 
     public function templates()
     {
-        $activeTheme = SiteSetting::get('active_theme', 'elegant-rose');
-        return view('admin.settings.templates', compact('activeTheme'));
+        $activeTheme      = SiteSetting::get('active_theme', 'elegant-rose');
+        $activeHeroLayout = SiteSetting::get('active_hero_layout', '');
+        $heroSettings = [
+            'badge'    => SiteSetting::get('hero_badge',    "Bangladesh's Trusted Matrimonial Platform"),
+            'title'    => SiteSetting::get('hero_title',    'Find Your <em>Perfect</em><br>Life Partner'),
+            'subtitle' => SiteSetting::get('hero_subtitle', 'Join thousands of families who found their match through MMMS — a safe, verified, and family-oriented matrimonial platform built for Bangladeshi values.'),
+            'cta'      => SiteSetting::get('hero_cta',      'Register Free'),
+        ];
+        return view('admin.settings.templates', compact('activeTheme', 'activeHeroLayout', 'heroSettings'));
     }
 
     public function updateTemplate(Request $request)
@@ -28,6 +35,25 @@ class SettingController extends Controller
         ]);
         SiteSetting::set('active_theme', $request->theme);
         return back()->with('success', 'Theme activated successfully!');
+    }
+
+    public function updateHero(Request $request)
+    {
+        $request->validate([
+            'hero_layout'   => ['nullable', 'in:,dark-immersive,split-light,glass-center,neon-cyber,editorial-bold,soft-organic'],
+            'hero_badge'    => ['nullable', 'string', 'max:120'],
+            'hero_title'    => ['nullable', 'string', 'max:300'],
+            'hero_subtitle' => ['nullable', 'string', 'max:500'],
+            'hero_cta'      => ['nullable', 'string', 'max:60'],
+        ]);
+
+        SiteSetting::set('active_hero_layout', $request->hero_layout ?? '');
+        SiteSetting::set('hero_badge',    $request->hero_badge    ?? '');
+        SiteSetting::set('hero_title',    $request->hero_title    ?? '');
+        SiteSetting::set('hero_subtitle', $request->hero_subtitle ?? '');
+        SiteSetting::set('hero_cta',      $request->hero_cta      ?? '');
+
+        return back()->with('success', 'Hero settings saved successfully!');
     }
 
     public function update(Request $request)

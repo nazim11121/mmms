@@ -1,76 +1,37 @@
+@php
+use App\Models\SiteSetting;
+
+$activeTheme  = SiteSetting::get('active_theme', 'elegant-rose');
+$heroSettings = [
+    'badge'       => SiteSetting::get('hero_badge',    "Bangladesh's Trusted Matrimonial Platform"),
+    'title_html'  => SiteSetting::get('hero_title',    'Find Your <em>Perfect</em><br>Life Partner'),
+    'subtitle'    => SiteSetting::get('hero_subtitle', 'Join thousands of families who found their match through MMMS — a safe, verified, and family-oriented matrimonial platform built for Bangladeshi values.'),
+    'cta_primary' => SiteSetting::get('hero_cta',      'Register Free'),
+];
+
+$heroMap = [
+    'elegant-rose'   => 'dark-immersive',
+    'ocean-breeze'   => 'split-light',
+    'midnight-gold'  => 'dark-immersive',
+    'emerald-garden' => 'split-light',
+    'royal-violet'   => 'dark-immersive',
+    'sunset-coral'   => 'dark-immersive',
+    'arctic-minimal' => 'editorial-bold',
+    'rose-blush'     => 'soft-organic',
+    'glassmorphism'  => 'glass-center',
+    'corporate-flat' => 'editorial-bold',
+    'saffron-spice'  => 'split-light',
+    'neon-noir'      => 'neon-cyber',
+    'soft-pastel'    => 'soft-organic',
+    'bold-editorial' => 'editorial-bold',
+];
+
+$heroStyle = SiteSetting::get('active_hero_layout') ?: ($heroMap[$activeTheme] ?? 'dark-immersive');
+@endphp
 @extends('layouts.app')
 @section('title', 'MMMS — Find Your Perfect Life Partner in Bangladesh')
 @push('styles')
 <style>
-/* ─── HERO ─── */
-.hero {
-    min-height: 100vh; position: relative; overflow: hidden;
-    background: linear-gradient(140deg, #B5341A 0%, #7D1F3A 45%, #3A0F30 80%, #1E0A20 100%);
-    display: flex; align-items: center;
-}
-.hero::before {
-    content: ''; position: absolute; inset: 0;
-    background-image: radial-gradient(circle, rgba(255,255,255,.045) 1px, transparent 1px);
-    background-size: 28px 28px;
-}
-.hero::after {
-    content: ''; position: absolute; right: -10%; bottom: -10%;
-    width: 55vw; height: 55vw; border-radius: 50%;
-    border: 1px solid rgba(255,255,255,.04);
-    pointer-events: none;
-}
-.hero-ring {
-    position: absolute; border-radius: 50%;
-    border: 1px solid rgba(255,255,255,.05); pointer-events: none;
-}
-.hero-ring-1 { width: 600px; height: 600px; right: 5%; top: 50%; transform: translateY(-50%); }
-.hero-ring-2 { width: 900px; height: 900px; right: -5%; top: 50%; transform: translateY(-50%); }
-.hero-content { position: relative; z-index: 1; max-width: 640px; }
-.hero-eyebrow {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.15);
-    padding: 5px 14px; border-radius: 20px; margin-bottom: 28px;
-    font-size: .78rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: rgba(255,255,255,.8);
-}
-.hero-eyebrow-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); flex-shrink:0; animation: pulse 2s ease infinite; }
-@keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:.4;} }
-.hero-title {
-    font-family: 'Playfair Display', serif; font-size: clamp(2.6rem, 5vw, 4rem);
-    font-weight: 700; color: #fff; line-height: 1.12; margin-bottom: 22px;
-    text-wrap: balance;
-}
-.hero-title em { font-style: italic; color: var(--gold-light, #F0C865); }
-.hero-subtitle { font-size: 1.05rem; color: rgba(255,255,255,.72); line-height: 1.7; margin-bottom: 36px; max-width: 520px; }
-.hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 52px; }
-.btn-hero-primary {
-    padding: 14px 32px; background: #fff; color: var(--brand);
-    border-radius: 10px; font-weight: 700; font-size: .95rem; text-decoration: none;
-    display: inline-flex; align-items: center; gap: 8px;
-    transition: transform .2s, box-shadow .2s;
-    box-shadow: 0 4px 20px rgba(0,0,0,.2);
-}
-.btn-hero-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,0,0,.3); }
-.btn-hero-outline {
-    padding: 14px 28px; border: 1.5px solid rgba(255,255,255,.4);
-    border-radius: 10px; font-weight: 600; font-size: .95rem; color: #fff; text-decoration: none;
-    display: inline-flex; align-items: center; gap: 8px;
-    transition: background .2s, border-color .2s;
-}
-.btn-hero-outline:hover { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.7); }
-.hero-trust { display: flex; flex-wrap:wrap; gap: 24px; }
-.hero-trust-item { display: flex; align-items: center; gap: 8px; font-size: .82rem; color: rgba(255,255,255,.6); }
-.hero-trust-item i { color: var(--gold); }
-.hero-scroll {
-    position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
-    width: 30px; height: 48px; border: 2px solid rgba(255,255,255,.25);
-    border-radius: 15px; display: flex; justify-content: center; padding-top: 8px;
-}
-.hero-scroll::after {
-    content: ''; width: 4px; height: 8px; background: rgba(255,255,255,.5);
-    border-radius: 2px; animation: scrollDown 2s ease infinite;
-}
-@keyframes scrollDown { 0%{opacity:1;transform:translateY(0);} 80%{opacity:0;transform:translateY(12px);} 100%{opacity:0;transform:translateY(0);} }
-
 /* ─── STATS ─── */
 .stats-strip {
     background: var(--surface); border-bottom: 1px solid var(--border);
@@ -193,7 +154,7 @@
 /* ─── CTA BANNER ─── */
 .cta-banner {
     border-radius: 24px; overflow: hidden; position: relative;
-    background: linear-gradient(130deg, #B5341A 0%, #7D1F3A 60%, #3A0F30 100%);
+    background: linear-gradient(130deg, var(--brand) 0%, var(--brand-dark) 60%, rgba(0,0,0,.55) 100%);
     padding: 60px 48px;
 }
 .cta-banner::before {
@@ -219,48 +180,8 @@
 @endpush
 @section('content')
 
-<!-- Hero -->
-<section class="hero">
-    <div class="hero-ring hero-ring-1"></div>
-    <div class="hero-ring hero-ring-2"></div>
-    <div class="container" style="padding-top:80px; padding-bottom:80px;">
-        <div class="hero-content">
-            <div class="hero-eyebrow">
-                <span class="hero-eyebrow-dot"></span>
-                Bangladesh's Trusted Matrimonial Platform
-            </div>
-            <h1 class="hero-title">
-                Find Your <em>Perfect</em><br>Life Partner
-            </h1>
-            <p class="hero-subtitle">
-                Join thousands of families who found their match through MMMS — a safe, verified, and family-oriented matrimonial platform built for Bangladeshi values.
-            </p>
-            <div class="hero-actions">
-                @guest
-                    <a href="{{ route('register') }}" class="btn-hero-primary">
-                        <i class="fas fa-heart"></i> Register Free
-                    </a>
-                    <a href="{{ route('search') }}" class="btn-hero-outline">
-                        <i class="fas fa-search"></i> Browse Profiles
-                    </a>
-                @else
-                    <a href="{{ route('search') }}" class="btn-hero-primary">
-                        <i class="fas fa-search"></i> Browse Profiles
-                    </a>
-                    <a href="{{ route('member.dashboard') }}" class="btn-hero-outline">
-                        <i class="fas fa-home"></i> My Dashboard
-                    </a>
-                @endguest
-            </div>
-            <div class="hero-trust">
-                <div class="hero-trust-item"><i class="fas fa-shield-alt"></i> Verified Profiles</div>
-                <div class="hero-trust-item"><i class="fas fa-lock"></i> Private & Secure</div>
-                <div class="hero-trust-item"><i class="fas fa-headset"></i> 24/7 Support</div>
-            </div>
-        </div>
-    </div>
-    <a href="#stats" class="hero-scroll" aria-label="Scroll down"></a>
-</section>
+<!-- Hero — dynamically selected based on active theme / admin override -->
+@include('hero.' . $heroStyle)
 
 <!-- Stats -->
 <div class="stats-strip" id="stats">
