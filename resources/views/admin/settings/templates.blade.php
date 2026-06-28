@@ -772,13 +772,15 @@
 
 @php
 $heroLayouts = [
-    ['slug' => '',                'name' => 'Auto (Theme Default)',  'desc' => 'Each theme picks its own best-match hero layout automatically.', 'preview_bg' => 'linear-gradient(135deg,#E8E0D0,#D4C8B8)', 'preview_inner' => '#9A8878', 'icon' => 'fas fa-magic'],
-    ['slug' => 'dark-immersive',  'name' => 'Dark Immersive',        'desc' => 'Full-screen brand gradient with decorative rings and left-aligned content.', 'preview_bg' => 'linear-gradient(140deg,var(--brand,#B5341A),rgba(0,0,0,.9))', 'preview_inner' => '#fff', 'icon' => 'fas fa-moon'],
-    ['slug' => 'split-light',     'name' => 'Split Light',           'desc' => 'CSS Grid two-column: light text panel left, brand gradient with glass stat cards right.', 'preview_bg' => '#fff', 'preview_inner' => '#B5341A', 'icon' => 'fas fa-columns'],
-    ['slug' => 'glass-center',    'name' => 'Glass Center',          'desc' => 'Deep space background with animated color orbs behind a frosted glass centered card.', 'preview_bg' => 'linear-gradient(135deg,#0f0c29,#302b63)', 'preview_inner' => 'rgba(255,255,255,.12)', 'icon' => 'fas fa-circle'],
-    ['slug' => 'neon-cyber',      'name' => 'Neon Cyber',            'desc' => 'Dark background with CSS grid lines, neon glow accents, and a right-side stats panel.', 'preview_bg' => '#07090E', 'preview_inner' => '#00E5CC', 'icon' => 'fas fa-bolt'],
-    ['slug' => 'editorial-bold',  'name' => 'Editorial Bold',        'desc' => 'White/light bg, massive serif heading left with thick rule, colored info panel right.', 'preview_bg' => '#fff', 'preview_inner' => '#B5341A', 'icon' => 'fas fa-newspaper'],
-    ['slug' => 'soft-organic',    'name' => 'Soft Organic',          'desc' => 'Centered layout with animated blob shapes, pill CTA, and a rounded stats bar below.', 'preview_bg' => '#FBF5FF', 'preview_inner' => '#9B59B6', 'icon' => 'fas fa-leaf'],
+    ['slug' => '',                  'name' => 'Auto (Theme Default)',  'desc' => 'Each theme picks its own best-match hero layout automatically.', 'preview_bg' => 'linear-gradient(135deg,#E8E0D0,#D4C8B8)', 'preview_inner' => '#9A8878', 'icon' => 'fas fa-magic'],
+    ['slug' => 'slider-cinematic',  'name' => 'Slider — Cinematic',   'desc' => '3-slide auto-play slider with full-screen gradient, fade transition, arrows, dot & tick navigation.', 'preview_bg' => 'linear-gradient(140deg,#B5341A,rgba(0,0,0,.88))', 'preview_inner' => '#fff', 'icon' => 'fas fa-film'],
+    ['slug' => 'slider-magazine',   'name' => 'Slider — Magazine',    'desc' => '3-slide content slider left + static brand stat panel right. Slide-up transition with progress bar.', 'preview_bg' => '#fff', 'preview_inner' => '#B5341A', 'icon' => 'fas fa-book-open'],
+    ['slug' => 'dark-immersive',    'name' => 'Dark Immersive',       'desc' => 'Full-screen brand gradient with decorative rings and left-aligned content.', 'preview_bg' => 'linear-gradient(140deg,#7D1F3A,rgba(0,0,0,.9))', 'preview_inner' => '#fff', 'icon' => 'fas fa-moon'],
+    ['slug' => 'split-light',       'name' => 'Split Light',          'desc' => 'CSS Grid two-column: light text panel left, brand gradient with glass stat cards right.', 'preview_bg' => 'linear-gradient(135deg,#fff 50%,#B5341A 50%)', 'preview_inner' => '#B5341A', 'icon' => 'fas fa-columns'],
+    ['slug' => 'glass-center',      'name' => 'Glass Center',         'desc' => 'Deep space background with animated color orbs behind a frosted glass centered card.', 'preview_bg' => 'linear-gradient(135deg,#0f0c29,#302b63)', 'preview_inner' => 'rgba(255,255,255,.5)', 'icon' => 'fas fa-circle'],
+    ['slug' => 'neon-cyber',        'name' => 'Neon Cyber',           'desc' => 'Dark background with CSS grid lines, neon glow accents, and a right-side stats panel.', 'preview_bg' => '#07090E', 'preview_inner' => '#00E5CC', 'icon' => 'fas fa-bolt'],
+    ['slug' => 'editorial-bold',    'name' => 'Editorial Bold',       'desc' => 'White/light bg, massive serif heading left with thick rule, colored info panel right.', 'preview_bg' => '#fff', 'preview_inner' => '#D40000', 'icon' => 'fas fa-newspaper'],
+    ['slug' => 'soft-organic',      'name' => 'Soft Organic',         'desc' => 'Centered layout with animated blob shapes, pill CTA, and a rounded stats bar below.', 'preview_bg' => '#FBF5FF', 'preview_inner' => '#9B59B6', 'icon' => 'fas fa-leaf'],
 ];
 @endphp
 

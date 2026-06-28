@@ -10,19 +10,19 @@ $heroSettings = [
 ];
 
 $heroMap = [
-    'elegant-rose'   => 'dark-immersive',
+    'elegant-rose'   => 'slider-cinematic',
     'ocean-breeze'   => 'split-light',
-    'midnight-gold'  => 'dark-immersive',
-    'emerald-garden' => 'split-light',
-    'royal-violet'   => 'dark-immersive',
-    'sunset-coral'   => 'dark-immersive',
+    'midnight-gold'  => 'slider-cinematic',
+    'emerald-garden' => 'slider-magazine',
+    'royal-violet'   => 'slider-cinematic',
+    'sunset-coral'   => 'slider-cinematic',
     'arctic-minimal' => 'editorial-bold',
-    'rose-blush'     => 'soft-organic',
+    'rose-blush'     => 'slider-magazine',
     'glassmorphism'  => 'glass-center',
     'corporate-flat' => 'editorial-bold',
-    'saffron-spice'  => 'split-light',
+    'saffron-spice'  => 'slider-magazine',
     'neon-noir'      => 'neon-cyber',
-    'soft-pastel'    => 'soft-organic',
+    'soft-pastel'    => 'slider-magazine',
     'bold-editorial' => 'editorial-bold',
 ];
 

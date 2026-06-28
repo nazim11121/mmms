@@ -40,7 +40,7 @@ class SettingController extends Controller
     public function updateHero(Request $request)
     {
         $request->validate([
-            'hero_layout'   => ['nullable', 'in:,dark-immersive,split-light,glass-center,neon-cyber,editorial-bold,soft-organic'],
+            'hero_layout'   => ['nullable', 'in:,dark-immersive,split-light,glass-center,neon-cyber,editorial-bold,soft-organic,slider-cinematic,slider-magazine'],
             'hero_badge'    => ['nullable', 'string', 'max:120'],
             'hero_title'    => ['nullable', 'string', 'max:300'],
             'hero_subtitle' => ['nullable', 'string', 'max:500'],
