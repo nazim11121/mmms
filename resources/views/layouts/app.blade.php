@@ -292,8 +292,10 @@
     @stack('extra-styles')
     </style>
     @stack('styles')
+    @php $activeTheme = \App\Models\SiteSetting::get('active_theme', 'elegant-rose'); @endphp
+    @include('themes.' . $activeTheme)
 </head>
-<body>
+<body data-theme="{{ $activeTheme }}">
 
 <!-- Mobile menu overlay -->
 <div class="mobile-menu" id="mobileMenu">

@@ -15,6 +15,21 @@ class SettingController extends Controller
         return view('admin.settings.index', compact('settings'));
     }
 
+    public function templates()
+    {
+        $activeTheme = SiteSetting::get('active_theme', 'elegant-rose');
+        return view('admin.settings.templates', compact('activeTheme'));
+    }
+
+    public function updateTemplate(Request $request)
+    {
+        $request->validate([
+            'theme' => ['required', 'in:elegant-rose,ocean-breeze,midnight-gold,emerald-garden,royal-violet,sunset-coral,arctic-minimal,rose-blush,glassmorphism,corporate-flat,saffron-spice,neon-noir,soft-pastel,bold-editorial'],
+        ]);
+        SiteSetting::set('active_theme', $request->theme);
+        return back()->with('success', 'Theme activated successfully!');
+    }
+
     public function update(Request $request)
     {
         $settingsToSave = [

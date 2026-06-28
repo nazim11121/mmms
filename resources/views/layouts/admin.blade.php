@@ -176,8 +176,11 @@
             <i class="fas fa-crown"></i> Subscription Plans
         </a>
         <div class="a-nav-section">System</div>
-        <a href="{{ route('admin.settings.index') }}" class="a-nav-link {{ request()->routeIs('admin.settings.*') ? 'active' : '' }}">
+        <a href="{{ route('admin.settings.index') }}" class="a-nav-link {{ request()->routeIs('admin.settings.index') ? 'active' : '' }}">
             <i class="fas fa-sliders-h"></i> Site Settings
+        </a>
+        <a href="{{ route('admin.settings.templates') }}" class="a-nav-link {{ request()->routeIs('admin.settings.templates') ? 'active' : '' }}">
+            <i class="fas fa-palette"></i> Appearance
         </a>
         <a href="{{ route('home') }}" class="a-nav-link">
             <i class="fas fa-external-link-alt"></i> View Site
